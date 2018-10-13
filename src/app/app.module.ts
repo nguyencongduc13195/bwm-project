@@ -4,11 +4,17 @@ import { RouterModule, Routes } from "@angular/router";
 
 import { AppComponent } from "./app.component";
 import { HeaderComponent } from "./common/header/header.component";
+import { TempComponent } from './temp/temp.component';
 
-const Routes: Routes = [{ path: "", component: AppComponent }];
+import { RentalModule } from './rental/rental.module';
+
+const Routes: Routes = [
+  { path: "", redirectTo: 'rentals', pathMatch: 'full' },
+  { path: "temp", component: TempComponent }
+];
 @NgModule({
-  declarations: [AppComponent, HeaderComponent],
-  imports: [BrowserModule, RouterModule.forRoot(Routes)],
+  declarations: [AppComponent, HeaderComponent, TempComponent],
+  imports: [BrowserModule, RouterModule.forRoot(Routes), RentalModule],
   providers: [],
   bootstrap: [AppComponent]
 })
