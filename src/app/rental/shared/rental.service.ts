@@ -1,46 +1,17 @@
 import { Rental } from './rental.model';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable()
 export class RentalService {
 
-  constructor() { }
-  private rentals: Rental[] = [
-    {
-      id: '1',
-      title: 'Central Apartment 3',
-      city: 'Bratislava',
-      street: 'Hlavna',
-      category: 'condo',
-      image: 'https://via.placeholder.com/320x250',
-      description: 'Very nice',
-      bedrooms:2,
-      dailyRate:334,
-      shared: true,
-      createdAt: '24/12/2017'
-    }
-  ];
-  public getRentalDetail(rentalID: string): Observable<Rental>{
-    return new Observable<Rental>((obs)=>{
-      setTimeout(() => {
-        const foundRental = this.rentals.find(val=>val.id === rentalID);
-        obs.next(foundRental)
-      }, 1000);
-    });
+  constructor(private _http: HttpClient) { }
+
+  public getRentalDetail(rentalID: string): Observable<any>{
+    return this._http.get(`http://localhost:3000/api/v1/rentals/${rentalID}`);
   }
-  public getRentals() : Observable<Rental[]>{
-    const rentalObservable: Observable<Rental[]> = new Observable((obs)=>{
-      setTimeout(() => {
-        obs.next(this.rentals);
-      }, 1000);
-      setTimeout(() => {
-        obs.error('ERROR');
-      }, 1000);
-      setTimeout(() => {
-        obs.complete();
-      }, 1000);
-    });
-    return rentalObservable;
+  public getRentals() : Observable<any>{
+    return this._http.get(`http://localhost:3000/api/v1/rentals`);
   }
 }
