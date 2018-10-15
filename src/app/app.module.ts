@@ -13,7 +13,7 @@ const Routes: Routes = [
   { path: "temp", component: TempComponent }
 ];
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, TempComponent],
+  declarations: [AppComponent, HeaderComponent, TempComponent, ],
   imports: [BrowserModule, RouterModule.forRoot(Routes), RentalModule],
   providers: [],
   bootstrap: [AppComponent]
