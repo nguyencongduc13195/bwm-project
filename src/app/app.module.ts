@@ -7,6 +7,7 @@ import { HeaderComponent } from "./common/header/header.component";
 import { TempComponent } from './temp/temp.component';
 
 import { RentalModule } from './rental/rental.module';
+import { AuthModule } from './auth/auth.module';
 
 const Routes: Routes = [
   { path: "", redirectTo: 'rentals', pathMatch: 'full' },
@@ -14,7 +15,7 @@ const Routes: Routes = [
 ];
 @NgModule({
   declarations: [AppComponent, HeaderComponent, TempComponent, ],
-  imports: [BrowserModule, RouterModule.forRoot(Routes), RentalModule],
+  imports: [BrowserModule, RouterModule.forRoot(Routes), RentalModule, AuthModule],
   providers: [],
   bootstrap: [AppComponent]
 })
