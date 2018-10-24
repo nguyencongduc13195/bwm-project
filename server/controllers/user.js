@@ -15,9 +15,7 @@ exports.auth = (req, res) => {
       const token = jwt.sign({
         userId: user._id,
         username: user.username
-      }, config.SECRET, {expiresIn: '1h'});
-      console.log(token)
-      console.log(user)
+      }, config.SECRET, {expiresIn: '3h'});
       return res.json(token);
     }else{
       return res.status(422).json({errors: [{title: 'Wrong data!', detail: 'Wrong email or password'}]});
@@ -48,7 +46,6 @@ exports.authMiddleware = (req, res, next) => {
   if(token){
     const user = parseToken(token);
     User.findById(user.userId).exec((err, user)=>{
-      console.log(user)
       if(err) return res.status(422).send({err});
       if(user){
         res.locals.user = user;
