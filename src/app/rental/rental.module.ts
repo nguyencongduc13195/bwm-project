@@ -1,3 +1,6 @@
+import { BookingService } from './../booking/shared/booking.service';
+import { FormsModule } from '@angular/forms';
+import { HelperService } from './../common/services/helper.service';
 import { AuthGuard } from './../auth/shared/auth.guard';
 import { RentalComponent } from "./rental.component";
 import { RentalListItemComponent } from "./rental-list-item/rental-list-item.component";
@@ -27,7 +30,8 @@ const rentalRoutes: Routes = [
     RouterModule.forChild(rentalRoutes),
     HttpClientModule,
     NgPipesModule,
-    Daterangepicker
+    Daterangepicker,
+    FormsModule
   ],
   declarations: [
     RentalListItemComponent,
@@ -36,6 +40,6 @@ const rentalRoutes: Routes = [
     RentalDetailComponent,
     RentalDetailBookingComponent
   ],
-  providers: [RentalService, AuthGuard]
+  providers: [RentalService, AuthGuard, HelperService, BookingService]
 })
 export class RentalModule {}
