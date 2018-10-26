@@ -14,9 +14,11 @@ export class RentalDetailComponent implements OnInit {
   public rental: Rental;
   ngOnInit() {
     this._activatedRoute.params.subscribe((params: Params)=>{
-      console.log(params)
       if(params['rentalID']){
         this._rentalService.getRentalDetail(params['rentalID']).subscribe(x=>this.rental=x);
+        // setTimeout(() => {
+        // console.log(this.rental)
+        // }, 2000);
       }
     })
   }

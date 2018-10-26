@@ -5,31 +5,31 @@ const config = require('../config/dev');
 exports.auth = (req, res) => {
   const { email, password } = req.body;
   if(!password || !email){
-    res.status(422).send({errors: [{title: 'Data missing!', detail: 'Provide email and password.'}]});
+    res.json({errors: [{title: 'Data missing!', detail: 'Provide email and password.'}]});
   }
   User.findOne({email}).exec((err, user)=>{
     if(err) return res.status(422).send({'mongoose': 'err1'});
     if(!user)
-      return res.status(422).send({errors: [{title: 'Invalid user!', detail: 'User doesn\'t exist.'}]});
+      return res.json({errors: [{title: 'Invalid user!', detail: 'User doesn\'t exist.'}]});
     if(user.isSamePassword(password)){
       const token = jwt.sign({
         userId: user._id,
         username: user.username
-      }, config.SECRET, {expiresIn: '1h'});
+      }, config.SECRET, {expiresIn: '3h'});
       return res.json(token);
     }else{
-      return res.status(422).send({errors: [{title: 'Wrong data!', detail: 'Wrong email or password'}]});
+      return res.status(422).json({errors: [{title: 'Wrong data!', detail: 'Wrong email or password'}]});
     }
   });
 };
 exports.register = (req, res) => {
-  const { username, email, password, confirmPassword } = req.body;
+  const { username, email, password } = req.body;
   if(!password || !email){
     res.status(422).send({errors: [{title: 'Data missing!', detail: 'Provide email and password.'}]});
   }
-  if(password !== confirmPassword){
-    res.status(422).send({errors: [{title: 'Invalid password!', detail: 'Password is not a same as confirmation'}]});
-  }
+  // if(password !== confirmPassword){
+  //   res.status(422).send({errors: [{title: 'Invalid password!', detail: 'Password is not a same as confirmation'}]});
+  // }
   User.findOne({email}).exec((err, existingUser)=>{
     if(err) return res.status(422).send({'mongoose': 'err1'});
     if(existingUser)
@@ -46,7 +46,6 @@ exports.authMiddleware = (req, res, next) => {
   if(token){
     const user = parseToken(token);
     User.findById(user.userId).exec((err, user)=>{
-      console.log(user)
       if(err) return res.status(422).send({err});
       if(user){
         res.locals.user = user;

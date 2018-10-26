@@ -7,6 +7,7 @@ const config = require('./config/dev');
 const FakeDB = require('./fake-db');
 const rentalRouter = require('./routes/rental');
 const userRouter = require('./routes/user');
+const bookingRouter = require('./routes/booking');
 mongoose.connect(config.DB_URL,  { useNewUrlParser: true }).then(()=>{
   // const fakeDb = new FakeDB();
   // fakeDb.seedDb();
@@ -16,6 +17,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use('/api/v1/rentals', rentalRouter);
 app.use('/api/v1/users', userRouter);
+app.use('/api/v1/bookings', bookingRouter);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, ()=>{

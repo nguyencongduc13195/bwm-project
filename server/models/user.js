@@ -23,8 +23,8 @@ const userSchema = new Schema({
     max: [32, "Too long, max is 32 characters"],
     required: "Password is required"
   },
-  rentals: [{ type: Schema.Types.ObjectId, ref: "Rental" }]
-  // bookings: [{ type: Schema.Types.ObjectId, ref: 'Booking' }]
+  rentals: [{ type: Schema.Types.ObjectId, ref: "Rental" }],
+  bookings: [{ type: Schema.Types.ObjectId, ref: 'Booking' }]
 });
 userSchema.methods.isSamePassword = function(requestedPassword){
   return bcrypt.compareSync(requestedPassword, this.password);
