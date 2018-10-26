@@ -16,10 +16,9 @@ export class RentalDetailComponent implements OnInit {
     this._activatedRoute.params.subscribe((params: Params)=>{
       if(params['rentalID']){
         this._rentalService.getRentalDetail(params['rentalID']).subscribe(x=>this.rental=x);
-        setTimeout(() => {
-        console.log(this.rental)
-
-        }, 2000);
+        // setTimeout(() => {
+        // console.log(this.rental)
+        // }, 2000);
       }
     })
   }

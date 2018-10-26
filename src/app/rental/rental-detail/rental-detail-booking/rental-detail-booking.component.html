@@ -1,5 +1,5 @@
 <div class="booking">
-  <h3 class="booking-price">${{price}}
+  <h3 class="booking-price">${{rental?.dailyRate}}
     <span class="booking-per-night">per night</span>
   </h3>
   <hr>
@@ -10,11 +10,12 @@
   />
   <div class="form-group">
     <label for="guests">Guests</label>
-    <input name="guests" type="number" class="form-control" id="guests" aria-describedby="emailHelp" required>
+    <input name="guests" [(ngModel)]="newBooking.guests" type="number" class="form-control" id="guests" aria-describedby="emailHelp" required>
   </div>
   <!-- </form> -->
-  <button class="btn btn-danger btn-confirm btn-block">Reserve place now</button>
-  <!-- [disabled]="!bookingForm.form.valid || !newBooking.startAt || !newBooking.startAt" -->
+  <button
+      [disabled]="!newBooking.guests || !newBooking.startAt || !newBooking.endAt"
+      (click)="openConfirModal(content)" class="btn btn-danger btn-confirm btn-block">Reserve place now</button>
   <hr>
   <!-- </ng-container> -->
   <!-- <div *ngIf="!auth.isAuthenticated()" class="should-login">
@@ -26,7 +27,7 @@
   </p>
 </div>
 
-<!-- <ng-template #content let-c="close" let-d="dismiss">
+<ng-template #content let-c="close" let-d="dismiss">
   <div class="modal-header">
     <h4 class="modal-title">Confirm Booking
       <p>{{newBooking.startAt}} to {{newBooking.endAt}}</p>
@@ -44,16 +45,15 @@
     <p>Price:
       <em>{{newBooking.totalPrice}}$</em>
     </p>
-
     <p>Do you confirm booking for selected days?</p>
   </div>
-  <!-- <div *ngIf="errors.length > 0" class="alert alert-danger modal-error">
+  <div *ngIf="errors.length > 0" class="alert alert-danger modal-error">
     <p *ngFor="let error of errors">
       {{error.detail}}
     </p>
-  </div> -->
-  <!-- <div class="modal-footer">
+  </div>
+  <div class="modal-footer">
     <button type="button" class="btn btn-bwm" (click)="createBooking()">Confirm</button>
     <button type="button" class="btn btn-bwm" (click)="c('Close click')">Close</button>
-  </div> -->
-<!-- </ng-template> -->
+  </div>
+</ng-template>
